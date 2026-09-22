@@ -38,12 +38,21 @@ func TestRenderHUD(t *testing.T) {
 }
 
 func TestRenderView_TerminalTooSmall(t *testing.T) {
-	output := render.RenderView(60, 15, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "")
-	if output == "" {
-		t.Errorf("expected output")
+	testCases := []struct {
+		width, height int
+	}{
+		{59, 10},
+		{60, 9},
 	}
-	if !contains(output, "Terminal too small") {
-		t.Errorf("expected output to contain 'Terminal too small' for 60x15 terminal")
+
+	for _, tc := range testCases {
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "")
+		if output == "" {
+			t.Errorf("expected output")
+		}
+		if !contains(output, "Terminal too small") {
+			t.Errorf("expected output to contain 'Terminal too small' for %dx%d terminal", tc.width, tc.height)
+		}
 	}
 }
 
@@ -54,6 +63,7 @@ func TestRenderView_ValidDimensions(t *testing.T) {
 		{80, 24},
 		{100, 25},
 		{70, 20},
+		{60, 10},
 	}
 
 	for _, tc := range testCases {
