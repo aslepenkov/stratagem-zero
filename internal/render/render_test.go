@@ -53,7 +53,7 @@ func TestRenderView_ValidDimensions(t *testing.T) {
 	}{
 		{80, 24},
 		{100, 25},
-		{66, 20},
+		{70, 20},
 	}
 
 	for _, tc := range testCases {
