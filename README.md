@@ -1,6 +1,7 @@
 # Stratagem Zero
 
-![Stratagem Zero](assets/images/screenshot.png)
+<img width="512" height="262" alt="image" src="https://github.com/user-attachments/assets/4e7b8c88-6934-4ecb-a994-877117a8f97c" />
+
 
 A fast, responsive, arcade-like terminal game inspired by the stratagem input mechanic from **Helldivers 2**.
 
