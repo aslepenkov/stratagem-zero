@@ -169,7 +169,7 @@ const (
 	AnimFailure
 )
 
-func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string) string {
+func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string, freezeSeconds int) string {
 	if width > 0 && height > 0 && (width < 60 || height < 10) {
 		return lipgloss.Place(
 			width, height,
@@ -208,6 +208,30 @@ func RenderView(width, height int, stratName string, seq []stratagem.Direction, 
 	)
 
 	boxed := boxStyle.Render(content)
+
+	if freezeSeconds > 0 || animState == AnimFailure {
+		sec := freezeSeconds
+		if sec <= 0 {
+			sec = 3
+		}
+		overlayMsg := fmt.Sprintf(" Lockout: %ds ", sec)
+		overlayBox := lipgloss.NewStyle().
+			Border(lipgloss.DoubleBorder()).
+			BorderForeground(redColor).
+			Background(lipgloss.Color("#1A0000")).
+			Foreground(whiteColor).
+			Bold(true).
+			Padding(0, 1).
+			Render(failBannerStyle.Render("✗ INCORRECT INPUT") + "\n" + overlayMsg)
+
+		boxed = lipgloss.Place(
+			58, 10,
+			lipgloss.Center, lipgloss.Center,
+			overlayBox,
+			lipgloss.WithWhitespaceChars(" "),
+			lipgloss.WithWhitespaceForeground(grayColor),
+		)
+	}
 
 	if width > 0 && height > 0 {
 		return lipgloss.Place(width, height, lipgloss.Center, lipgloss.Center, boxed)

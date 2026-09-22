@@ -21,6 +21,7 @@ import (
 
 type tickMsg time.Time
 type animTickMsg struct{}
+type freezeTickMsg struct{}
 
 type model struct {
 	engine            *game.Engine
@@ -30,6 +31,7 @@ type model struct {
 	animState         render.AnimationState
 	lastCompletedName string
 	forceASCII        bool
+	freezeSeconds     int
 }
 
 func tick() tea.Cmd {
@@ -41,6 +43,12 @@ func tick() tea.Cmd {
 func animTick(delay time.Duration) tea.Cmd {
 	return tea.Tick(delay, func(t time.Time) tea.Msg {
 		return animTickMsg{}
+	})
+}
+
+func freezeTick() tea.Cmd {
+	return tea.Tick(1*time.Second, func(t time.Time) tea.Msg {
+		return freezeTickMsg{}
 	})
 }
 
@@ -70,7 +78,17 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if m.animState == render.AnimSuccess {
 			m.animState = render.AnimLaunch
 			return m, animTick(250 * time.Millisecond)
-		} else if m.animState == render.AnimLaunch || m.animState == render.AnimFailure {
+		} else if m.animState == render.AnimLaunch {
+			m.animState = render.AnimNone
+		}
+		return m, nil
+
+	case freezeTickMsg:
+		if m.freezeSeconds > 0 {
+			m.freezeSeconds--
+			if m.freezeSeconds > 0 {
+				return m, freezeTick()
+			}
 			m.animState = render.AnimNone
 		}
 		return m, nil
@@ -81,6 +99,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "q", "ctrl+c", "esc":
 			m.audioPlayer.Close()
 			return m, tea.Quit
+		}
+
+		if m.freezeSeconds > 0 {
+			return m, nil
 		}
 
 		dir, err := input.ParseKey(k)
@@ -103,7 +125,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case game.EventWrongInput:
 			m.audioPlayer.Play(audio.SoundFail)
 			m.animState = render.AnimFailure
-			return m, animTick(250 * time.Millisecond)
+			m.freezeSeconds = 3
+			return m, freezeTick()
 		}
 	}
 
@@ -124,6 +147,7 @@ func (m model) View() string {
 		elapsed,
 		m.animState,
 		m.lastCompletedName,
+		m.freezeSeconds,
 	)
 }
 
