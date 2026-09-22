@@ -78,7 +78,7 @@ var (
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(yellowColor).
 			Padding(0, 1).
-			Width(68).
+			Width(58).
 			Align(lipgloss.Center)
 )
 
@@ -170,17 +170,15 @@ const (
 )
 
 func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string) string {
-	if width > 0 && height > 0 && (width < 70 || height < 20) {
+	if width > 0 && height > 0 && (width < 60 || height < 10) {
 		return lipgloss.Place(
 			width, height,
 			lipgloss.Center, lipgloss.Center,
-			lipgloss.NewStyle().Foreground(redColor).Render("Terminal too small.\nResize to at least 70x20."),
+			lipgloss.NewStyle().Foreground(redColor).Render("Terminal too small.\nResize to at least 60x10."),
 		)
 	}
 
 	header := titleStyle.Render("⚡ STRATAGEM ZERO ⚡")
-
-	asciiArt := GetGenericStratagemASCII(stratName)
 
 	nameBar := stratagemNameStyle.Render(stratName)
 
@@ -203,15 +201,9 @@ func RenderView(width, height int, stratName string, seq []stratagem.Direction, 
 	content := lipgloss.JoinVertical(
 		lipgloss.Center,
 		header,
-		"",
-		asciiArt,
-		"",
 		nameBar,
-		"",
 		seqView,
-		"",
 		animBanner,
-		"",
 		hudView,
 	)
 
