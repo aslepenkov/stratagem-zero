@@ -94,4 +94,5 @@ jobs:
           files: |
             dist/*.tar.gz
             dist/*.zip
+            install.sh
           generate_release_notes: true

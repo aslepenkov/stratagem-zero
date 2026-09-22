@@ -16,18 +16,24 @@ A fast, responsive, arcade-like terminal game inspired by the stratagem input me
 
 ## Requirements
 
-- **Go 1.21+**
 - Linux / macOS / BSD terminal environment (Linux primary target)
+- **Go 1.21+** (only required if building from source)
 
-## Installation & Build
+## Installation
 
-Build the binary locally using `go` or `make`:
+Install using curl (installs into `~/.local/bin`):
+
+```bash
+curl -sSL https://raw.githubusercontent.com/aslepenkov/stratagem-zero/main/install.sh | sh
+```
+
+Or build locally:
 
 ```bash
 make build
 ```
 
-Or install directly:
+Or install via Go:
 
 ```bash
 go install ./cmd/stratagem-zero
@@ -38,7 +44,7 @@ go install ./cmd/stratagem-zero
 Simply run:
 
 ```bash
-./stratagem-zero
+stratagem-zero
 ```
 
 ### CLI Flags
@@ -48,7 +54,7 @@ Simply run:
 - `--seed <number>`: Set a specific random seed for deterministic stratagem selection.
 
 ```bash
-./stratagem-zero --no-sound --ascii
+stratagem-zero --no-sound --ascii
 ```
 
 ## Controls
@@ -69,26 +75,6 @@ Simply run:
 - **Round Score:** `(base + speed_bonus) * streak_multiplier`
 
 Failing a sequence immediately resets your active streak to 0.
-
-## Development & Testing
-
-Run unit tests:
-
-```bash
-make test
-```
-
-Run code linter / vet:
-
-```bash
-make lint
-```
-
-Clean build artifacts:
-
-```bash
-make clean
-```
 
 ## License
 
