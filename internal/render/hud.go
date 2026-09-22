@@ -28,14 +28,14 @@ var (
 	titleStyle = lipgloss.NewStyle().
 			Bold(true).
 			Foreground(yellowColor).
-			MarginBottom(1)
+			MarginBottom(0)
 
 	stratagemNameStyle = lipgloss.NewStyle().
 				Bold(true).
 				Foreground(whiteColor).
 				Background(lipgloss.Color("#222222")).
-				Padding(0, 2).
-				MarginBottom(1)
+				Padding(0, 1).
+				MarginBottom(0)
 
 	arrowCompletedStyle = lipgloss.NewStyle().
 				Bold(true).
@@ -77,8 +77,8 @@ var (
 	boxStyle = lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(yellowColor).
-			Padding(1, 3).
-			Width(64).
+			Padding(0, 1).
+			Width(68).
 			Align(lipgloss.Center)
 )
 
@@ -97,28 +97,40 @@ func DirectionSymbol(dir stratagem.Direction) string {
 	}
 }
 
+// DirectionBigSymbol returns a 2-line representation of the symbol for x2 size
+func DirectionBigSymbol(dir stratagem.Direction) (string, string) {
+	sym := DirectionSymbol(dir)
+	// Build a 2x2 multi-line string for 2x font size visual appearance
+	return sym + sym, sym + sym
+}
+
 func RenderSequence(seq []stratagem.Direction, inputIndex int) string {
-	var topRow []string
-	var bottomRow []string
+	var arrowRow1 []string
+	var arrowRow2 []string
+	var statusRow []string
 
 	for i, dir := range seq {
-		sym := DirectionSymbol(dir)
+		line1, line2 := DirectionBigSymbol(dir)
 		if i < inputIndex {
-			topRow = append(topRow, arrowCompletedStyle.Render(sym))
-			bottomRow = append(bottomRow, checkStyle.Render("✓"))
+			arrowRow1 = append(arrowRow1, arrowCompletedStyle.Render(line1))
+			arrowRow2 = append(arrowRow2, arrowCompletedStyle.Render(line2))
+			statusRow = append(statusRow, checkStyle.Render("✓ "))
 		} else if i == inputIndex {
-			topRow = append(topRow, arrowCurrentStyle.Render(sym))
-			bottomRow = append(bottomRow, dotStyle.Render("·"))
+			arrowRow1 = append(arrowRow1, arrowCurrentStyle.Render(line1))
+			arrowRow2 = append(arrowRow2, arrowCurrentStyle.Render(line2))
+			statusRow = append(statusRow, dotStyle.Render("· "))
 		} else {
-			topRow = append(topRow, arrowUpcomingStyle.Render(sym))
-			bottomRow = append(bottomRow, dotStyle.Render("·"))
+			arrowRow1 = append(arrowRow1, arrowUpcomingStyle.Render(line1))
+			arrowRow2 = append(arrowRow2, arrowUpcomingStyle.Render(line2))
+			statusRow = append(statusRow, dotStyle.Render("· "))
 		}
 	}
 
 	return lipgloss.JoinVertical(
 		lipgloss.Center,
-		stringsJoinWithSpaces(topRow, "  "),
-		stringsJoinWithSpaces(bottomRow, "  "),
+		stringsJoinWithSpaces(arrowRow1, " "),
+		stringsJoinWithSpaces(arrowRow2, " "),
+		stringsJoinWithSpaces(statusRow, " "),
 	)
 }
 
@@ -145,7 +157,7 @@ func RenderHUD(score, streak int, elapsedMs int64) string {
 	part2 := hudLabelStyle.Render("STREAK ") + hudValueStyle.Render(fmt.Sprintf("%d", streak))
 	part3 := hudLabelStyle.Render("TIME ") + hudValueStyle.Render(timeStr)
 
-	return lipgloss.JoinHorizontal(lipgloss.Center, part1, "     ", part2, "     ", part3)
+	return lipgloss.JoinHorizontal(lipgloss.Center, part1, "   ", part2, "   ", part3)
 }
 
 type AnimationState int
@@ -158,11 +170,11 @@ const (
 )
 
 func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string) string {
-	if width > 0 && height > 0 && (width < 66 || height < 20) {
+	if width > 0 && height > 0 && (width < 70 || height < 20) {
 		return lipgloss.Place(
 			width, height,
 			lipgloss.Center, lipgloss.Center,
-			lipgloss.NewStyle().Foreground(redColor).Render("Terminal too small.\nResize to at least 66x20."),
+			lipgloss.NewStyle().Foreground(redColor).Render("Terminal too small.\nResize to at least 70x20."),
 		)
 	}
 
