@@ -101,7 +101,7 @@ func DirectionSymbol(dir stratagem.Direction) string {
 func DirectionBigSymbol(dir stratagem.Direction) (string, string) {
 	sym := DirectionSymbol(dir)
 	// Build a 2x2 multi-line string for 2x font size visual appearance
-	return sym + sym, sym + sym
+	return sym, sym
 }
 
 func RenderSequence(seq []stratagem.Direction, inputIndex int) string {
@@ -129,7 +129,6 @@ func RenderSequence(seq []stratagem.Direction, inputIndex int) string {
 	return lipgloss.JoinVertical(
 		lipgloss.Center,
 		stringsJoinWithSpaces(arrowRow1, " "),
-		stringsJoinWithSpaces(arrowRow2, " "),
 		stringsJoinWithSpaces(statusRow, " "),
 	)
 }
