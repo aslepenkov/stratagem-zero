@@ -46,7 +46,7 @@ func TestRenderView_TerminalTooSmall(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "")
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", 0)
 		if output == "" {
 			t.Errorf("expected output")
 		}
@@ -67,10 +67,20 @@ func TestRenderView_ValidDimensions(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "")
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", 0)
 		if contains(output, "Terminal too small") {
 			t.Errorf("expected valid rendering without 'Terminal too small' for %dx%d terminal", tc.width, tc.height)
 		}
+	}
+}
+
+func TestRenderView_FailureOverlay(t *testing.T) {
+	output := render.RenderView(80, 24, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimFailure, "", 3)
+	if !contains(output, "INCORRECT INPUT") {
+		t.Errorf("expected output to contain 'INCORRECT INPUT'")
+	}
+	if !contains(output, "Lockout: 3s") {
+		t.Errorf("expected output to contain 'Lockout: 3s'")
 	}
 }
 
