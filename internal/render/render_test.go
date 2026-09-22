@@ -38,8 +38,41 @@ func TestRenderHUD(t *testing.T) {
 }
 
 func TestRenderView_TerminalTooSmall(t *testing.T) {
-	output := render.RenderView(60, 20, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "")
-	if !testing.Short() && output == "" {
+	output := render.RenderView(60, 15, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "")
+	if output == "" {
 		t.Errorf("expected output")
 	}
+	if !contains(output, "Terminal too small") {
+		t.Errorf("expected output to contain 'Terminal too small' for 60x15 terminal")
+	}
+}
+
+func TestRenderView_ValidDimensions(t *testing.T) {
+	testCases := []struct {
+		width, height int
+	}{
+		{80, 24},
+		{100, 25},
+		{66, 20},
+	}
+
+	for _, tc := range testCases {
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "")
+		if contains(output, "Terminal too small") {
+			t.Errorf("expected valid rendering without 'Terminal too small' for %dx%d terminal", tc.width, tc.height)
+		}
+	}
+}
+
+func contains(s, substr string) bool {
+	return len(s) >= len(substr) && (s == substr || searchSubstring(s, substr))
+}
+
+func searchSubstring(s, substr string) bool {
+	for i := 0; i <= len(s)-len(substr); i++ {
+		if s[i:i+len(substr)] == substr {
+			return true
+		}
+	}
+	return false
 }

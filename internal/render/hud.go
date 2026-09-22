@@ -158,11 +158,11 @@ const (
 )
 
 func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string) string {
-	if width > 0 && height > 0 && (width < 80 || height < 24) {
+	if width > 0 && height > 0 && (width < 66 || height < 20) {
 		return lipgloss.Place(
 			width, height,
 			lipgloss.Center, lipgloss.Center,
-			lipgloss.NewStyle().Foreground(redColor).Render("Terminal too small.\nResize to at least 80x24."),
+			lipgloss.NewStyle().Foreground(redColor).Render("Terminal too small.\nResize to at least 66x20."),
 		)
 	}
 
