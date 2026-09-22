@@ -1,0 +1,1170 @@
+[
+  {
+    "name": "Reinforce",
+    "sequence": [
+      "UP",
+      "DOWN",
+      "RIGHT",
+      "LEFT",
+      "UP"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Resupply",
+    "sequence": [
+      "DOWN",
+      "DOWN",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "SOS Beacon",
+    "sequence": [
+      "UP",
+      "DOWN",
+      "RIGHT",
+      "UP"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Super Earth Flag",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "SEAF Artillery",
+    "sequence": [
+      "RIGHT",
+      "UP",
+      "UP",
+      "DOWN"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Hellbomb",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Eagle Rearm",
+    "sequence": [
+      "UP",
+      "UP",
+      "LEFT",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Upload Data",
+    "sequence": [
+      "LEFT",
+      "RIGHT",
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Prospecting Drill",
+    "sequence": [
+      "DOWN",
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Dark Fluid Vessel",
+    "sequence": [
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "UP"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Tectonic Drill",
+    "sequence": [
+      "UP",
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "MG-43 Machine Gun",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "APW-1 Anti-Materiel Rifle",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "UP",
+      "DOWN"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "M-105 Stalwart",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "UP",
+      "LEFT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "EAT-17 Anti-Tank",
+    "sequence": [
+      "DOWN",
+      "DOWN",
+      "LEFT",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "GR-8 Recoilless Rifle",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "RIGHT",
+      "LEFT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "FLAM-40 Flamethrower",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "AC-8 Autocannon",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "MG-206 Heavy Machine Gun",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "RS-422 Railgun",
+    "sequence": [
+      "DOWN",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "FAF-14 SPEAR Launcher",
+    "sequence": [
+      "DOWN",
+      "DOWN",
+      "UP",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "LAS-98 Laser Cannon",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "LEFT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "ARC-3 Arc Thrower",
+    "sequence": [
+      "DOWN",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "LEFT",
+      "LEFT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "LAS-99 Quasar Cannon",
+    "sequence": [
+      "DOWN",
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "RL-77 Airburst Rocket Launcher",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "MLS-4X Commando",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Stun Grenade Launcher",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "LEFT",
+      "DOWN"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Orbital Gatling Barrage",
+    "sequence": [
+      "RIGHT",
+      "DOWN",
+      "LEFT",
+      "UP",
+      "UP"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Airburst Strike",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "RIGHT"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital 120mm HE Barrage",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital 380mm HE Barrage",
+    "sequence": [
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "UP",
+      "LEFT",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Walking Barrage",
+    "sequence": [
+      "RIGHT",
+      "DOWN",
+      "RIGHT",
+      "DOWN",
+      "RIGHT",
+      "DOWN"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Laser",
+    "sequence": [
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "DOWN"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Railcannon Strike",
+    "sequence": [
+      "RIGHT",
+      "UP",
+      "DOWN",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Precision Strike",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "UP"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Gas Strike",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital EMS Strike",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "LEFT",
+      "DOWN"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Smoke Strike",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Napalm Barrage",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "UP"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Eagle Strafing Run",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "RIGHT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Airstrike",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Cluster Bomb",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Napalm Airstrike",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Smoke Strike",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "UP",
+      "DOWN"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle 110mm Rocket Pods",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "UP",
+      "LEFT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle 500kg Bomb",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "LIFT-850 Jump Pack",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "UP",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "B-1 Supply Pack",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "UP",
+      "DOWN"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "AX/LAS-5 'Guard Dog' Rover",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "UP",
+      "RIGHT",
+      "RIGHT"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "SH-20 Ballistic Shield Backpack",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "DOWN",
+      "UP",
+      "LEFT"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "SH-32 Shield Generator Pack",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "AX/AR-23 'Guard Dog'",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "UP",
+      "RIGHT",
+      "DOWN"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "AX/TX-13 'Guard Dog' Dog Breath",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "UP",
+      "RIGHT",
+      "UP"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "E/MG-101 HMG Emplacement",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "RIGHT",
+      "LEFT"
+    ],
+    "category": "Engineering Bay"
+  },
+  {
+    "name": "FX-12 Shield Generator Relay",
+    "sequence": [
+      "DOWN",
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Engineering Bay"
+  },
+  {
+    "name": "A/ARC-3 Tesla Tower",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Engineering Bay"
+  },
+  {
+    "name": "MD-6 Anti-Personnel Minefield",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Engineering Bay"
+  },
+  {
+    "name": "MD-I4 Incendiary Mines",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "LEFT",
+      "DOWN"
+    ],
+    "category": "Engineering Bay"
+  },
+  {
+    "name": "MD-17 Anti-Tank Mines",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "UP"
+    ],
+    "category": "Engineering Bay"
+  },
+  {
+    "name": "MD-8 Gas Mines",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Engineering Bay"
+  },
+  {
+    "name": "A/MG-43 Machine Gun Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "RIGHT",
+      "UP"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "A/G-16 Gatling Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "LEFT"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "A/M-12 Mortar Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "A/AC-8 Autocannon Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "UP",
+      "LEFT",
+      "UP"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "A/MLS-4X Rocket Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "RIGHT",
+      "LEFT"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "A/M-15 EMS Mortar Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "EXO-45 Patriot Exosuit",
+    "sequence": [
+      "LEFT",
+      "DOWN",
+      "RIGHT",
+      "UP",
+      "LEFT",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "EXO-49 Emancipator Exosuit",
+    "sequence": [
+      "LEFT",
+      "DOWN",
+      "RIGHT",
+      "UP",
+      "LEFT",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "Fast Recon Vehicle",
+    "sequence": [
+      "LEFT",
+      "DOWN",
+      "RIGHT",
+      "DOWN",
+      "RIGHT",
+      "DOWN",
+      "UP"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "Hover Rover",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "UP",
+      "UP"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "Portable Hellbomb",
+    "sequence": [
+      "DOWN",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "UP",
+      "UP"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Orbital Flare",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "LEFT",
+      "LEFT"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Heavy Laser",
+    "sequence": [
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "RIGHT"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Disruption Strike",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "LEFT",
+      "UP"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Eagle Heavy Bomb",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "DOWN"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Carpet Bomb",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "DOWN",
+      "LEFT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Cryo Bomb",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "LEFT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Incendiary Bomb",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Flame Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "UP"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "Laser Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "LEFT",
+      "UP"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "Plasma Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "LEFT"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "Shotgun Sentry",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "RIGHT",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Robotics Workshop"
+  },
+  {
+    "name": "Medical Backpack",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "RIGHT"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "Ammo Backpack",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "UP"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "Drone Backpack",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "DOWN"
+    ],
+    "category": "Bridge"
+  },
+  {
+    "name": "Heavy Flamethrower",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Grenade Launcher",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "UP",
+      "LEFT",
+      "DOWN"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Plasma Cannon",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Laser Rifle Support",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "RIGHT",
+      "RIGHT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Cluster Launcher",
+    "sequence": [
+      "DOWN",
+      "UP",
+      "UP",
+      "LEFT",
+      "LEFT"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Rocket Launcher",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "RIGHT",
+      "RIGHT",
+      "UP"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Heavy Laser Cannon",
+    "sequence": [
+      "DOWN",
+      "LEFT",
+      "DOWN",
+      "UP",
+      "UP"
+    ],
+    "category": "Patriotic Administration Center"
+  },
+  {
+    "name": "Missile Silo Callin",
+    "sequence": [
+      "DOWN",
+      "DOWN",
+      "UP",
+      "UP",
+      "LEFT",
+      "RIGHT",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Emergency Extraction",
+    "sequence": [
+      "UP",
+      "DOWN",
+      "UP",
+      "DOWN",
+      "UP",
+      "DOWN"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "SEAF SAM Site",
+    "sequence": [
+      "RIGHT",
+      "UP",
+      "UP",
+      "LEFT"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "SEAF Radar",
+    "sequence": [
+      "RIGHT",
+      "UP",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "SEAF Mini Nuke",
+    "sequence": [
+      "RIGHT",
+      "UP",
+      "DOWN",
+      "UP",
+      "DOWN",
+      "RIGHT"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Sub-Light Beacon",
+    "sequence": [
+      "UP",
+      "DOWN",
+      "RIGHT",
+      "LEFT",
+      "UP"
+    ],
+    "category": "Mission"
+  },
+  {
+    "name": "Orbital Shockwave",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "DOWN",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Cryo Blast",
+    "sequence": [
+      "RIGHT",
+      "RIGHT",
+      "DOWN",
+      "DOWN"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Orbital Thermal Lance",
+    "sequence": [
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "LEFT",
+      "RIGHT"
+    ],
+    "category": "Orbital Cannons"
+  },
+  {
+    "name": "Eagle Decoy Sweep",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "LEFT",
+      "LEFT"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Recon Drone",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "UP",
+      "UP"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Eagle Supply Drop",
+    "sequence": [
+      "UP",
+      "RIGHT",
+      "DOWN",
+      "UP",
+      "UP"
+    ],
+    "category": "Hangar"
+  },
+  {
+    "name": "Command Mech",
+    "sequence": [
+      "LEFT",
+      "DOWN",
+      "RIGHT",
+      "UP",
+      "UP",
+      "DOWN"
+    ],
+    "category": "Robotics Workshop"
+  }
+]
