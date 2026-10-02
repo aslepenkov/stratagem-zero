@@ -9,9 +9,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"stratagem-zero/assets"
 	"stratagem-zero/data"
-	"stratagem-zero/internal/audio"
 	"stratagem-zero/internal/game"
 	"stratagem-zero/internal/input"
 	"stratagem-zero/internal/render"
@@ -19,19 +17,22 @@ import (
 	"stratagem-zero/internal/stratagem"
 )
 
+// blinkFrames is how many 33ms ticks each blink phase lasts (~264ms).
+const blinkFrames = 8
+
 type tickMsg time.Time
 type animTickMsg struct{}
 type freezeTickMsg struct{}
 
 type model struct {
 	engine            *game.Engine
-	audioPlayer       audio.AudioPlayer
 	width             int
 	height            int
 	animState         render.AnimationState
 	lastCompletedName string
 	forceASCII        bool
 	freezeSeconds     int
+	frame             int
 }
 
 func tick() tea.Cmd {
@@ -52,11 +53,10 @@ func freezeTick() tea.Cmd {
 	})
 }
 
-func initialModel(engine *game.Engine, player audio.AudioPlayer, forceASCII bool) model {
+func initialModel(engine *game.Engine, forceASCII bool) model {
 	return model{
-		engine:      engine,
-		audioPlayer: player,
-		forceASCII:  forceASCII,
+		engine:     engine,
+		forceASCII: forceASCII,
 	}
 }
 
@@ -72,6 +72,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 
 	case tickMsg:
+		m.frame++
 		return m, tick()
 
 	case animTickMsg:
@@ -97,7 +98,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		k := msg.String()
 		switch k {
 		case "q", "ctrl+c", "esc":
-			m.audioPlayer.Close()
 			return m, tea.Quit
 		}
 
@@ -112,20 +112,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		event := m.engine.HandleInput(dir)
 		switch event.Type {
-		case game.EventCorrectInput:
-			m.audioPlayer.Play(audio.SoundKeypress)
-
 		case game.EventRoundSuccess:
-			m.audioPlayer.Play(audio.SoundSuccess)
-			m.audioPlayer.Play(audio.SoundLaunch)
 			m.animState = render.AnimSuccess
 			m.lastCompletedName = event.Stratagem.Name
 			return m, animTick(200 * time.Millisecond)
 
 		case game.EventWrongInput:
-			m.audioPlayer.Play(audio.SoundFail)
 			m.animState = render.AnimFailure
-			m.freezeSeconds = 3
+			m.freezeSeconds = 2
 			return m, freezeTick()
 		}
 	}
@@ -147,12 +141,12 @@ func (m model) View() string {
 		elapsed,
 		m.animState,
 		m.lastCompletedName,
-		m.freezeSeconds,
+		m.freezeSeconds > 0,
+		(m.frame/blinkFrames)%2 == 0,
 	)
 }
 
 func main() {
-	noSoundFlag := flag.Bool("no-sound", false, "Disable audio playback")
 	asciiFlag := flag.Bool("ascii", false, "Force ASCII fallback graphics")
 	seedFlag := flag.Int64("seed", 0, "Seed for random stratagem selection")
 
@@ -180,11 +174,9 @@ func main() {
 
 	scorer := scoring.NewDefaultScorer()
 	engine := game.NewEngine(selector, scorer, time.Now)
-	audioPlayer := audio.NewLinuxAudioPlayer(*noSoundFlag, assets.SoundsFS)
-	defer audioPlayer.Close()
 
 	p := tea.NewProgram(
-		initialModel(engine, audioPlayer, *asciiFlag),
+		initialModel(engine, *asciiFlag),
 		tea.WithAltScreen(),
 	)
 

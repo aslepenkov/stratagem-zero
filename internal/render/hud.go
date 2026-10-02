@@ -33,7 +33,6 @@ var (
 	stratagemNameStyle = lipgloss.NewStyle().
 				Bold(true).
 				Foreground(whiteColor).
-				Background(lipgloss.Color("#222222")).
 				Padding(0, 1).
 				MarginBottom(0)
 
@@ -69,10 +68,9 @@ var (
 				Foreground(greenColor).
 				Padding(0, 1)
 
-	failBannerStyle = lipgloss.NewStyle().
+	arrowErrorStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(redColor).
-			Padding(0, 1)
+			Foreground(redColor)
 
 	boxStyle = lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).
@@ -104,32 +102,37 @@ func DirectionBigSymbol(dir stratagem.Direction) (string, string) {
 	return sym, sym
 }
 
-func RenderSequence(seq []stratagem.Direction, inputIndex int) string {
+// RenderSequence draws the arrows. When errored, every arrow is red and blinks:
+// blinkOn=false renders them as blanks of the same width so the layout is stable.
+func RenderSequence(seq []stratagem.Direction, inputIndex int, errored, blinkOn bool) string {
 	var arrowRow1 []string
 	var arrowRow2 []string
-	var statusRow []string
 
 	for i, dir := range seq {
 		line1, line2 := DirectionBigSymbol(dir)
-		if i < inputIndex {
+		if errored {
+			if blinkOn {
+				arrowRow1 = append(arrowRow1, arrowErrorStyle.Render(line1))
+				arrowRow2 = append(arrowRow2, arrowErrorStyle.Render(line2))
+			} else {
+				arrowRow1 = append(arrowRow1, " ")
+				arrowRow2 = append(arrowRow2, " ")
+			}
+		} else if i < inputIndex {
 			arrowRow1 = append(arrowRow1, arrowCompletedStyle.Render(line1))
 			arrowRow2 = append(arrowRow2, arrowCompletedStyle.Render(line2))
-			statusRow = append(statusRow, checkStyle.Render("✓ "))
 		} else if i == inputIndex {
 			arrowRow1 = append(arrowRow1, arrowCurrentStyle.Render(line1))
 			arrowRow2 = append(arrowRow2, arrowCurrentStyle.Render(line2))
-			statusRow = append(statusRow, dotStyle.Render("· "))
 		} else {
 			arrowRow1 = append(arrowRow1, arrowUpcomingStyle.Render(line1))
 			arrowRow2 = append(arrowRow2, arrowUpcomingStyle.Render(line2))
-			statusRow = append(statusRow, dotStyle.Render("· "))
 		}
 	}
 
 	return lipgloss.JoinVertical(
 		lipgloss.Center,
 		stringsJoinWithSpaces(arrowRow1, " "),
-		stringsJoinWithSpaces(statusRow, " "),
 	)
 }
 
@@ -168,7 +171,7 @@ const (
 	AnimFailure
 )
 
-func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string, freezeSeconds int) string {
+func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string, frozen, blinkOn bool) string {
 	if width > 0 && height > 0 && (width < 60 || height < 10) {
 		return lipgloss.Place(
 			width, height,
@@ -181,16 +184,12 @@ func RenderView(width, height int, stratName string, seq []stratagem.Direction, 
 
 	nameBar := stratagemNameStyle.Render(stratName)
 
-	seqView := RenderSequence(seq, inputIndex)
+	seqView := RenderSequence(seq, inputIndex, frozen, blinkOn)
 
 	var animBanner string
 	switch animState {
 	case AnimSuccess:
 		animBanner = successBannerStyle.Render("✓ STRATAGEM READY")
-	case AnimLaunch:
-		animBanner = successBannerStyle.Render("🚀 LAUNCHING " + lastCompletedName)
-	case AnimFailure:
-		animBanner = failBannerStyle.Render("✗ INCORRECT INPUT")
 	default:
 		animBanner = " "
 	}
@@ -206,31 +205,11 @@ func RenderView(width, height int, stratName string, seq []stratagem.Direction, 
 		hudView,
 	)
 
-	boxed := boxStyle.Render(content)
-
-	if freezeSeconds > 0 || animState == AnimFailure {
-		sec := freezeSeconds
-		if sec <= 0 {
-			sec = 3
-		}
-		overlayMsg := fmt.Sprintf(" Lockout: %ds ", sec)
-		overlayBox := lipgloss.NewStyle().
-			Border(lipgloss.DoubleBorder()).
-			BorderForeground(redColor).
-			Background(lipgloss.Color("#1A0000")).
-			Foreground(whiteColor).
-			Bold(true).
-			Padding(0, 1).
-			Render(failBannerStyle.Render("✗ INCORRECT INPUT") + "\n" + overlayMsg)
-
-		boxed = lipgloss.Place(
-			58, 10,
-			lipgloss.Center, lipgloss.Center,
-			overlayBox,
-			lipgloss.WithWhitespaceChars(" "),
-			lipgloss.WithWhitespaceForeground(grayColor),
-		)
+	box := boxStyle
+	if frozen && blinkOn {
+		box = box.BorderForeground(redColor)
 	}
+	boxed := box.Render(content)
 
 	if width > 0 && height > 0 {
 		return lipgloss.Place(width, height, lipgloss.Center, lipgloss.Center, boxed)

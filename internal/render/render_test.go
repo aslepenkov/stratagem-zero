@@ -24,7 +24,7 @@ func TestDirectionSymbol(t *testing.T) {
 
 func TestRenderSequence(t *testing.T) {
 	seq := []stratagem.Direction{stratagem.Up, stratagem.Down, stratagem.Right}
-	output := render.RenderSequence(seq, 1)
+	output := render.RenderSequence(seq, 1, false, false)
 	if output == "" {
 		t.Errorf("expected non-empty output")
 	}
@@ -46,7 +46,7 @@ func TestRenderView_TerminalTooSmall(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", 0)
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", false, false)
 		if output == "" {
 			t.Errorf("expected output")
 		}
@@ -67,20 +67,25 @@ func TestRenderView_ValidDimensions(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", 0)
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", false, false)
 		if contains(output, "Terminal too small") {
 			t.Errorf("expected valid rendering without 'Terminal too small' for %dx%d terminal", tc.width, tc.height)
 		}
 	}
 }
 
-func TestRenderView_FailureOverlay(t *testing.T) {
-	output := render.RenderView(80, 24, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimFailure, "", 3)
-	if !contains(output, "INCORRECT INPUT") {
-		t.Errorf("expected output to contain 'INCORRECT INPUT'")
+func TestRenderView_FrozenBlinksArrows(t *testing.T) {
+	seq := []stratagem.Direction{stratagem.Up}
+	on := render.RenderView(80, 24, "Reinforce", seq, 0, 0, 0, 0, render.AnimFailure, "", true, true)
+	off := render.RenderView(80, 24, "Reinforce", seq, 0, 0, 0, 0, render.AnimFailure, "", true, false)
+	if !contains(on, render.DirectionSymbol(stratagem.Up)) {
+		t.Errorf("expected arrow visible during blink-on phase")
 	}
-	if !contains(output, "Lockout: 3s") {
-		t.Errorf("expected output to contain 'Lockout: 3s'")
+	if contains(off, render.DirectionSymbol(stratagem.Up)) {
+		t.Errorf("expected arrow hidden during blink-off phase")
+	}
+	if contains(on, "INCORRECT INPUT") || contains(on, "Lockout") {
+		t.Errorf("expected no overlay or banner during freeze")
 	}
 }
 

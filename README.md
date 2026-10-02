@@ -11,8 +11,8 @@ A fast, responsive, arcade-like terminal game inspired by the stratagem input me
 - **105 Stratagems:** Complete current stratagem pool embedded in the binary.
 - **Continuous Gameplay:** Immediate transitions on success/failure without blocking menus or result screens.
 - **Scoring & Streaks:** Combo multipliers and speed bonuses rewarded for rapid inputs.
-- **Rich Visuals & Audio:** Helldivers-inspired TUI built with Bubble Tea and Lip Gloss, complete with embedded sound effects.
-- **Fallback Support:** Works over SSH, small terminal displays (with resize warnings), and without sound or image support.
+- **Rich Visuals:** Helldivers-inspired TUI built with Bubble Tea and Lip Gloss.
+- **Fallback Support:** Works over SSH, small terminal displays (with resize warnings), and without image support.
 
 ## Requirements
 
@@ -49,12 +49,11 @@ stratagem-zero
 
 ### CLI Flags
 
-- `--no-sound`: Disable audio playback.
 - `--ascii`: Force ASCII fallback graphics mode.
 - `--seed <number>`: Set a specific random seed for deterministic stratagem selection.
 
 ```bash
-stratagem-zero --no-sound --ascii
+stratagem-zero --ascii
 ```
 
 ## Controls
