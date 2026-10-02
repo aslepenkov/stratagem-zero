@@ -23,8 +23,12 @@ type Event struct {
 	ElapsedDuration time.Duration
 }
 
+// UpcomingCount is how many stratagems are known ahead of the current one.
+const UpcomingCount = 4
+
 type GameState struct {
 	CurrentStratagem stratagem.Stratagem
+	Upcoming         []stratagem.Stratagem
 	InputIndex       int
 
 	Score  int
@@ -45,6 +49,7 @@ type TimeProvider func() time.Time
 type Engine struct {
 	state        GameState
 	selector     stratagem.StratagemSelector
+	queue        []stratagem.Stratagem
 	scorer       Scorer
 	timeProvider TimeProvider
 }
@@ -62,6 +67,9 @@ func NewEngine(selector stratagem.StratagemSelector, scorer Scorer, tp TimeProvi
 		scorer:       scorer,
 		timeProvider: tp,
 	}
+	for i := 0; i < UpcomingCount; i++ {
+		engine.queue = append(engine.queue, selector.Next())
+	}
 	engine.startNewRound()
 	return engine
 }
@@ -71,7 +79,9 @@ func (e *Engine) State() GameState {
 }
 
 func (e *Engine) startNewRound() Event {
-	e.state.CurrentStratagem = e.selector.Next()
+	e.state.CurrentStratagem = e.queue[0]
+	e.queue = append(e.queue[1:], e.selector.Next())
+	e.state.Upcoming = append([]stratagem.Stratagem(nil), e.queue...)
 	e.state.InputIndex = 0
 	now := e.timeProvider()
 	if e.state.StartedAt.IsZero() {

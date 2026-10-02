@@ -36,25 +36,6 @@ var (
 				Padding(0, 1).
 				MarginBottom(0)
 
-	arrowCompletedStyle = lipgloss.NewStyle().
-				Bold(true).
-				Foreground(yellowColor)
-
-	arrowCurrentStyle = lipgloss.NewStyle().
-				Bold(true).
-				Foreground(whiteColor).
-				Underline(true)
-
-	arrowUpcomingStyle = lipgloss.NewStyle().
-				Foreground(grayColor)
-
-	checkStyle = lipgloss.NewStyle().
-			Bold(true).
-			Foreground(greenColor)
-
-	dotStyle = lipgloss.NewStyle().
-			Foreground(grayColor)
-
 	hudLabelStyle = lipgloss.NewStyle().
 			Bold(true).
 			Foreground(dimColor)
@@ -67,6 +48,18 @@ var (
 				Bold(true).
 				Foreground(greenColor).
 				Padding(0, 1)
+
+	arrowCompletedStyle = lipgloss.NewStyle().
+				Bold(true).
+				Foreground(yellowColor)
+
+	arrowCurrentStyle = lipgloss.NewStyle().
+				Bold(true).
+				Foreground(whiteColor).
+				Underline(true)
+
+	arrowUpcomingStyle = lipgloss.NewStyle().
+				Foreground(grayColor)
 
 	arrowErrorStyle = lipgloss.NewStyle().
 			Bold(true).
@@ -95,45 +88,28 @@ func DirectionSymbol(dir stratagem.Direction) string {
 	}
 }
 
-// DirectionBigSymbol returns a 2-line representation of the symbol for x2 size
-func DirectionBigSymbol(dir stratagem.Direction) (string, string) {
-	sym := DirectionSymbol(dir)
-	// Build a 2x2 multi-line string for 2x font size visual appearance
-	return sym, sym
-}
-
-// RenderSequence draws the arrows. When errored, every arrow is red and blinks:
-// blinkOn=false renders them as blanks of the same width so the layout is stable.
+// RenderSequence draws the arrows as single bold glyphs. When errored, every
+// arrow is red and blinks: blinkOn=false renders them as blanks so the
+// layout stays stable.
 func RenderSequence(seq []stratagem.Direction, inputIndex int, errored, blinkOn bool) string {
-	var arrowRow1 []string
-	var arrowRow2 []string
-
+	arrows := make([]string, 0, len(seq))
 	for i, dir := range seq {
-		line1, line2 := DirectionBigSymbol(dir)
-		if errored {
-			if blinkOn {
-				arrowRow1 = append(arrowRow1, arrowErrorStyle.Render(line1))
-				arrowRow2 = append(arrowRow2, arrowErrorStyle.Render(line2))
-			} else {
-				arrowRow1 = append(arrowRow1, " ")
-				arrowRow2 = append(arrowRow2, " ")
-			}
-		} else if i < inputIndex {
-			arrowRow1 = append(arrowRow1, arrowCompletedStyle.Render(line1))
-			arrowRow2 = append(arrowRow2, arrowCompletedStyle.Render(line2))
-		} else if i == inputIndex {
-			arrowRow1 = append(arrowRow1, arrowCurrentStyle.Render(line1))
-			arrowRow2 = append(arrowRow2, arrowCurrentStyle.Render(line2))
-		} else {
-			arrowRow1 = append(arrowRow1, arrowUpcomingStyle.Render(line1))
-			arrowRow2 = append(arrowRow2, arrowUpcomingStyle.Render(line2))
+		sym := DirectionSymbol(dir)
+		style := arrowUpcomingStyle
+		switch {
+		case errored:
+			style = arrowErrorStyle
+		case i < inputIndex:
+			style = arrowCompletedStyle
+		case i == inputIndex:
+			style = arrowCurrentStyle
 		}
+		if errored && !blinkOn {
+			sym = " "
+		}
+		arrows = append(arrows, style.Render(sym))
 	}
-
-	return lipgloss.JoinVertical(
-		lipgloss.Center,
-		stringsJoinWithSpaces(arrowRow1, " "),
-	)
+	return stringsJoinWithSpaces(arrows, "  ")
 }
 
 func stringsJoinWithSpaces(items []string, sep string) string {
@@ -171,12 +147,16 @@ const (
 	AnimFailure
 )
 
-func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string, frozen, blinkOn bool) string {
-	if width > 0 && height > 0 && (width < 60 || height < 10) {
+func RenderView(width, height int, stratName string, seq []stratagem.Direction, inputIndex, score, streak int, elapsedMs int64, animState AnimationState, lastCompletedName string, frozen, blinkOn bool, upcoming string) string {
+	minHeight := 10
+	if upcoming != "" {
+		minHeight = 8 + lipgloss.Height(upcoming)
+	}
+	if width > 0 && height > 0 && (width < 60 || height < minHeight) {
 		return lipgloss.Place(
 			width, height,
 			lipgloss.Center, lipgloss.Center,
-			lipgloss.NewStyle().Foreground(redColor).Render("Terminal too small.\nResize to at least 60x10."),
+			lipgloss.NewStyle().Foreground(redColor).Render(fmt.Sprintf("Terminal too small.\nResize to at least 60x%d.", minHeight)),
 		)
 	}
 
@@ -196,14 +176,12 @@ func RenderView(width, height int, stratName string, seq []stratagem.Direction, 
 
 	hudView := RenderHUD(score, streak, elapsedMs)
 
-	content := lipgloss.JoinVertical(
-		lipgloss.Center,
-		header,
-		nameBar,
-		seqView,
-		animBanner,
-		hudView,
-	)
+	rows := []string{header}
+	if upcoming != "" {
+		rows = append(rows, upcoming)
+	}
+	rows = append(rows, nameBar, seqView, animBanner, hudView)
+	content := lipgloss.JoinVertical(lipgloss.Center, rows...)
 
 	box := boxStyle
 	if frozen && blinkOn {

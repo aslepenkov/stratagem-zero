@@ -11,6 +11,7 @@ type stratagemDTO struct {
 	Name     string   `json:"name"`
 	Sequence []string `json:"sequence"`
 	Category string   `json:"category,omitempty"`
+	Icon     string   `json:"icon,omitempty"`
 }
 
 // LoadStratagems parses raw JSON data into a slice of Stratagems with validation.
@@ -53,6 +54,7 @@ func LoadStratagems(data []byte) ([]Stratagem, error) {
 			Name:     dto.Name,
 			Sequence: seq,
 			Category: dto.Category,
+			Icon:     dto.Icon,
 		})
 	}
 

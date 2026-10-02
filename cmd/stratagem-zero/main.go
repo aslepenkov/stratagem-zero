@@ -9,8 +9,10 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
+	"stratagem-zero/assets"
 	"stratagem-zero/data"
 	"stratagem-zero/internal/game"
+	"stratagem-zero/internal/icons"
 	"stratagem-zero/internal/input"
 	"stratagem-zero/internal/render"
 	"stratagem-zero/internal/scoring"
@@ -19,6 +21,10 @@ import (
 
 // blinkFrames is how many 33ms ticks each blink phase lasts (~264ms).
 const blinkFrames = 8
+
+// upcomingIconSize is the pixel size of each upcoming-stratagem icon; with
+// half-block rendering it takes size columns and size/2 rows.
+const upcomingIconSize = 8
 
 type tickMsg time.Time
 type animTickMsg struct{}
@@ -32,6 +38,7 @@ type model struct {
 	lastCompletedName string
 	forceASCII        bool
 	freezeSeconds     int
+	icons             *icons.Set
 	frame             int
 }
 
@@ -53,9 +60,10 @@ func freezeTick() tea.Cmd {
 	})
 }
 
-func initialModel(engine *game.Engine, forceASCII bool) model {
+func initialModel(engine *game.Engine, iconSet *icons.Set, forceASCII bool) model {
 	return model{
 		engine:     engine,
+		icons:      iconSet,
 		forceASCII: forceASCII,
 	}
 }
@@ -131,6 +139,15 @@ func (m model) View() string {
 	state := m.engine.State()
 	elapsed := time.Since(state.RoundStartTime).Milliseconds()
 
+	var upcoming string
+	if !m.forceASCII {
+		files := []string{state.CurrentStratagem.Icon}
+		for _, s := range state.Upcoming {
+			files = append(files, s.Icon)
+		}
+		upcoming = m.icons.Strip(files)
+	}
+
 	return render.RenderView(
 		m.width, m.height,
 		state.CurrentStratagem.Name,
@@ -143,6 +160,7 @@ func (m model) View() string {
 		m.lastCompletedName,
 		m.freezeSeconds > 0,
 		(m.frame/blinkFrames)%2 == 0,
+		upcoming,
 	)
 }
 
@@ -175,8 +193,17 @@ func main() {
 	scorer := scoring.NewDefaultScorer()
 	engine := game.NewEngine(selector, scorer, time.Now)
 
+	var iconSet *icons.Set
+	if !*asciiFlag {
+		iconSet, err = icons.NewSet(assets.IconsFS, "icons", upcomingIconSize)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "failed to load icons: %v\n", err)
+			os.Exit(1)
+		}
+	}
+
 	p := tea.NewProgram(
-		initialModel(engine, *asciiFlag),
+		initialModel(engine, iconSet, *asciiFlag),
 		tea.WithAltScreen(),
 	)
 

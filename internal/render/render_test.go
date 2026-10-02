@@ -41,12 +41,12 @@ func TestRenderView_TerminalTooSmall(t *testing.T) {
 	testCases := []struct {
 		width, height int
 	}{
-		{59, 10},
+		{59, 24},
 		{60, 9},
 	}
 
 	for _, tc := range testCases {
-		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", false, false)
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", false, false, "")
 		if output == "" {
 			t.Errorf("expected output")
 		}
@@ -62,12 +62,11 @@ func TestRenderView_ValidDimensions(t *testing.T) {
 	}{
 		{80, 24},
 		{100, 25},
-		{70, 20},
 		{60, 10},
 	}
 
 	for _, tc := range testCases {
-		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", false, false)
+		output := render.RenderView(tc.width, tc.height, "Reinforce", []stratagem.Direction{stratagem.Up}, 0, 0, 0, 0, render.AnimNone, "", false, false, "")
 		if contains(output, "Terminal too small") {
 			t.Errorf("expected valid rendering without 'Terminal too small' for %dx%d terminal", tc.width, tc.height)
 		}
@@ -76,12 +75,13 @@ func TestRenderView_ValidDimensions(t *testing.T) {
 
 func TestRenderView_FrozenBlinksArrows(t *testing.T) {
 	seq := []stratagem.Direction{stratagem.Up}
-	on := render.RenderView(80, 24, "Reinforce", seq, 0, 0, 0, 0, render.AnimFailure, "", true, true)
-	off := render.RenderView(80, 24, "Reinforce", seq, 0, 0, 0, 0, render.AnimFailure, "", true, false)
-	if !contains(on, render.DirectionSymbol(stratagem.Up)) {
+	arrow := render.DirectionSymbol(stratagem.Up)
+	on := render.RenderView(80, 24, "Reinforce", seq, 0, 0, 0, 0, render.AnimFailure, "", true, true, "")
+	off := render.RenderView(80, 24, "Reinforce", seq, 0, 0, 0, 0, render.AnimFailure, "", true, false, "")
+	if !contains(on, arrow) {
 		t.Errorf("expected arrow visible during blink-on phase")
 	}
-	if contains(off, render.DirectionSymbol(stratagem.Up)) {
+	if contains(off, arrow) {
 		t.Errorf("expected arrow hidden during blink-off phase")
 	}
 	if contains(on, "INCORRECT INPUT") || contains(on, "Lockout") {

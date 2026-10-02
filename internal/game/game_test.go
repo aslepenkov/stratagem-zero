@@ -125,3 +125,36 @@ func TestGameEngine_WrongInputFailsRound(t *testing.T) {
 		t.Errorf("expected InputIndex 0 for new round, got %d", state.InputIndex)
 	}
 }
+
+func TestGameEngine_UpcomingQueue(t *testing.T) {
+	var pool []stratagem.Stratagem
+	for _, n := range []string{"A", "B", "C", "D", "E", "F", "G", "H"} {
+		pool = append(pool, stratagem.Stratagem{Name: n, Sequence: []stratagem.Direction{stratagem.Up}})
+	}
+	engine := game.NewEngine(&mockSelector{stratagems: pool}, scoring.NewDefaultScorer(), nil)
+
+	names := func(ss []stratagem.Stratagem) string {
+		out := ""
+		for _, s := range ss {
+			out += s.Name
+		}
+		return out
+	}
+
+	state := engine.State()
+	if state.CurrentStratagem.Name != "A" || names(state.Upcoming) != "BCDE" {
+		t.Fatalf("initial: current %s upcoming %s", state.CurrentStratagem.Name, names(state.Upcoming))
+	}
+
+	engine.HandleInput(stratagem.Up) // completes A
+	state = engine.State()
+	if state.CurrentStratagem.Name != "B" || names(state.Upcoming) != "CDEF" {
+		t.Fatalf("after success: current %s upcoming %s", state.CurrentStratagem.Name, names(state.Upcoming))
+	}
+
+	engine.HandleInput(stratagem.Down) // wrong input skips B
+	state = engine.State()
+	if state.CurrentStratagem.Name != "C" || names(state.Upcoming) != "DEFG" {
+		t.Fatalf("after failure: current %s upcoming %s", state.CurrentStratagem.Name, names(state.Upcoming))
+	}
+}

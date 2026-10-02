@@ -47,4 +47,5 @@ type Stratagem struct {
 	Name     string      `json:"name"`
 	Sequence []Direction `json:"sequence"`
 	Category string      `json:"category,omitempty"`
+	Icon     string      `json:"icon,omitempty"`
 }
